@@ -105,6 +105,7 @@ public class MineLoader {
 		for (Mod mod : mods){
 			mod.pre_init();
 		}
+		SubscribeHandler(EventHandlerExample.class);
 
 	}
 	
