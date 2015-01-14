@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -91,21 +93,18 @@ public class MineLoader {
 		//LogManager.getLogger().log(Level.INFO, "Trying to launch MineLoader for version v" + MC_Version);
 		if (MinecraftVersion.current.Equals(Ver)){
 		//	LogManager.getLogger().log(Level.INFO, "Launching MineLoader for version v" + MC_Version);
-			if (MC_Path=="."){
-				MC_Path =  new File(".").getCanonicalPath();
-			}
+			Path currentRelativePath = Paths.get("");
+			String s = currentRelativePath.toAbsolutePath().toString();
+			MC_Path =  s;
 			PermissionsManager.init();
 			//LogManager.getLogger().log(Level.INFO, "Loading mods from " + MC_Path + "\\plugins");
 		    mod_path = MC_Path + "\\plugins";
-		    System.out.println(Arrays.asList(PermissionsManager.Instance.getPermission("tester").getCommands()));
-		    PermissionsManager.Instance.addPermissions(new Permissions("text" , "good"));
 			mods = ModLoader.loadAllMods();
 		//	LogManager.getLogger().log(Level.INFO, ""+mods.get(0).LocalizedName);
 		}
 		for (Mod mod : mods){
 			mod.pre_init();
 		}
-		SubscribeHandler(EventHandlerExample.class);
 
 	}
 	
