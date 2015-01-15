@@ -48,7 +48,13 @@ COMMAND can be
   
   2.A disabled command , For Example : "-tp" (Disables TP)
   
-  3.A statement (currently only "perms.all" which enables all commands except for disabled ones).
+  3.A statement:
+  
+  "perms.all" - all commands / permissions
+  
+  "perms.mine_blocks" - permission to mine blocks
+  
+  "-perms.mine_blocks" - disabling the option to mine blocks when all permissions are allowed
 
 COLOR stands for color , which can be used for chat.
 
