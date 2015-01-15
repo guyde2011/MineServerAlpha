@@ -1,4 +1,4 @@
-package net.mineloader.network;
+package net.mineloader.inv;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

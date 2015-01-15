@@ -1,4 +1,4 @@
-package net.mineloader.network;
+package net.mineloader.inv;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -18,13 +18,14 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S2DPacketOpenWindow;
 import net.minecraft.tileentity.TileEntityChest;
 import net.mineloader.main.MineLoader;
+import net.mineloader.network.NBTSaver;
 
-public class CustomInventory {
+public class CustomChestInventory {
 	private String displayName;
 	private int size;
 	public ChestInv inv;
 	
-	public CustomInventory(String dName ,int Size){
+	public CustomChestInventory(String dName ,int Size){
 		size = Size;
 		displayName = dName;
 		inv = new ChestInv(Size , dName);
@@ -53,10 +54,10 @@ public class CustomInventory {
 		NBTSaver.saveCompound(fileName, comp);
 	}
 	
-	public static CustomInventory readFromNBT(String fileName){
+	public static CustomChestInventory readFromNBT(String fileName){
 		NBTTagCompound comp = NBTSaver.readCompound(fileName);
 		ItemStack[] stacks = new ItemStack[comp.getInteger("size")];
-		CustomInventory inv = new CustomInventory(comp.getString("name"),stacks.length);
+		CustomChestInventory inv = new CustomChestInventory(comp.getString("name"),stacks.length);
 		NBTTagList list = comp.getTagList("inventory",10);
 		for (int i = 0; i<inv.size; i++){
 			NBTTagCompound item = (NBTTagCompound) list.get(i);

@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.BlockPos;
 
 public class BlockMinedEvent extends PlayerEvent {
-
+	public static int id = 6;
 	public final int xCoord;
 	public final int yCoord;
 	public final int zCoord;

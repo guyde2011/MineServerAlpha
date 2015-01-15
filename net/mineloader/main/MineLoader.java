@@ -46,6 +46,7 @@ import net.minecraft.world.WorldServer;
 import net.mineloader.api.*;
 import net.mineloader.event.BlockMinedEvent;
 import net.mineloader.event.ChatMessageEvent;
+import net.mineloader.event.EntityClickEvent;
 import net.mineloader.event.EntityDamagedEvent;
 import net.mineloader.event.Event;
 import net.mineloader.event.EventHandler;
@@ -107,6 +108,7 @@ public class MineLoader {
 		for (Mod mod : mods){
 			mod.pre_init();
 		}
+		SubscribeHandler(TestingEventHandler.class);
 
 	}
 	
@@ -299,5 +301,11 @@ public class MineLoader {
 		BlockMinedEvent ev = new BlockMinedEvent(player , pos , block);
 		runEvent(ev);
 		return !ev.isCanceled();
+	}
+
+	public static boolean clickEvent(EntityPlayer playerIn , Entity ent) {
+		EntityClickEvent event = new EntityClickEvent(playerIn, ent);
+		runEvent(event);
+		return !event.isCanceled();
 	}
 }
