@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.swing.filechooser.FileFilter;
 
@@ -27,6 +28,7 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.ServerCommandManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
@@ -36,12 +38,15 @@ import net.minecraft.network.play.client.C0EPacketClickWindow;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.mineloader.api.*;
+import net.mineloader.event.BlockMinedEvent;
 import net.mineloader.event.ChatMessageEvent;
+import net.mineloader.event.EntityDamagedEvent;
 import net.mineloader.event.Event;
 import net.mineloader.event.EventHandler;
 import net.mineloader.event.ItemClickEvent;
@@ -52,6 +57,7 @@ import net.mineloader.perms.Permissions;
 import net.mineloader.perms.PermissionsManager;
 import net.mineloader.reader.ModClassLoader;
 import net.mineloader.reader.ModLoader;
+import net.mineloader.util.Title;
 
 public class MineLoader {
 	
@@ -63,7 +69,7 @@ public class MineLoader {
 	public static List<Mod> mods;
 	private static List<Class> handlers;
 	private static boolean Init = false;
-
+	private static org.apache.logging.log4j.Logger logger = LogManager.getLogger();
 	private static String getMinecraftPath(){
 		return MC_Path;
 	}
@@ -76,10 +82,10 @@ public class MineLoader {
 		
 	}
 	
-	public static EntityPlayer getPlayer(String name){
+	public static EntityPlayerMP getPlayer(String name){
 		for (WorldServer world : MinecraftServer.getServer().worldServers){
 			if (world.getPlayerEntityByName(name)!=null){
-				return world.getPlayerEntityByName(name);
+				return (EntityPlayerMP) world.getPlayerEntityByName(name);
 			}
 		}
 		return null;
@@ -90,17 +96,13 @@ public class MineLoader {
 		handlers = new ArrayList<Class>();
 		MC_Version = Ver;
 		mods = new ArrayList<Mod>();
-		//LogManager.getLogger().log(Level.INFO, "Trying to launch MineLoader for version v" + MC_Version);
 		if (MinecraftVersion.current.Equals(Ver)){
-		//	LogManager.getLogger().log(Level.INFO, "Launching MineLoader for version v" + MC_Version);
 			Path currentRelativePath = Paths.get("");
 			String s = currentRelativePath.toAbsolutePath().toString();
 			MC_Path =  s;
 			PermissionsManager.init();
-			//LogManager.getLogger().log(Level.INFO, "Loading mods from " + MC_Path + "\\plugins");
 		    mod_path = MC_Path + "\\plugins";
 			mods = ModLoader.loadAllMods();
-		//	LogManager.getLogger().log(Level.INFO, ""+mods.get(0).LocalizedName);
 		}
 		for (Mod mod : mods){
 			mod.pre_init();
@@ -122,7 +124,7 @@ public class MineLoader {
 		for (Mod mod : mods){
 			mod.register();
 		}
-		LogManager.getLogger().log(Level.INFO, "Loaded "+mods.size()+" plugins");
+		logger.info("Succesfully loaded "+mods.size()+" plugins");
 		Init  = true;
 		
 	}
@@ -134,9 +136,10 @@ public class MineLoader {
 
 	
 	public static void player_joined(EntityPlayerMP player){
-		player.addChatMessage(new ChatComponentText("hello"));
 		time.put(player.getName(), Time.synced());
 		runEvent(new PlayerJoinEvent(player));
+		Title.timedTitle(EnumChatFormatting.GREEN + "Welcome", 1, 20, 1).sendTo(player);
+		Title.subtitle(EnumChatFormatting.YELLOW + "to the MSS Platform").sendTo(player);;
 	}
 	
 	public static void setTime(EntityPlayerMP player , long Time){
@@ -187,6 +190,7 @@ public class MineLoader {
 		if (Init){
 			runEvent(new TickEvent());
 		}
+
 	}
 	private static MineLoader loader = new MineLoader();
 	
@@ -282,5 +286,18 @@ public class MineLoader {
 		ItemClickEvent event = new ItemClickEvent(stack, world, player);
 		runEvent(event);
 		return !event.isCanceled();
+	}
+
+	public static boolean entityDamaged(Entity entity, DamageSource source,
+			float amount) {
+		EntityDamagedEvent ev = new EntityDamagedEvent(entity , source , amount);
+		runEvent(ev);
+		return !ev.isCanceled();
+	}
+
+	public static boolean blockMined(Block block, BlockPos pos, EntityPlayerMP player) {
+		BlockMinedEvent ev = new BlockMinedEvent(player , pos , block);
+		runEvent(ev);
+		return !ev.isCanceled();
 	}
 }
