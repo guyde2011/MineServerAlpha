@@ -12,9 +12,12 @@ The download can be found at: http://www.mediafire.com/download/92v8h8kdamb0m19/
 
 #Installation
 The server is like a normal server but you need to make 3 folders in the containing folder of the jar:
-1.plugins : for plugins
-2.data : for NBT data
-3.perms : for commands permissions
+  
+  1.plugins : for plugins
+  
+  2.data : for NBT data
+  
+  3.perms : for commands permissions
 
 ---------------------------------------------------------------------------------------------------------------------------
 #The Permissions File
