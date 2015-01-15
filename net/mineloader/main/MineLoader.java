@@ -139,7 +139,7 @@ public class MineLoader {
 		time.put(player.getName(), Time.synced());
 		runEvent(new PlayerJoinEvent(player));
 		Title.timedTitle(EnumChatFormatting.GREEN + "Welcome", 1, 20, 1).sendTo(player);
-		Title.subtitle(EnumChatFormatting.YELLOW + "to the MSS Platform").sendTo(player);;
+		Title.subtitle(EnumChatFormatting.YELLOW + "to the ClugMSS Platform").sendTo(player);
 	}
 	
 	public static void setTime(EntityPlayerMP player , long Time){
