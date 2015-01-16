@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-import net.mineloader.main.MineLoader;
+import net.mineloader.main.MineServer;
 
 public enum MinecraftVersion {
 	
@@ -23,8 +23,8 @@ public enum MinecraftVersion {
 	public static MinecraftVersion current;
 	
 	MinecraftVersion(int ver , String name){
-		if (MineLoader.versions==null){
-			MineLoader.versions = new HashMap<String,MinecraftVersion>();
+		if (MineServer.versions==null){
+			MineServer.versions = new HashMap<String,MinecraftVersion>();
 		}
 		ver_name = name;
 		ver_id = ver;
@@ -39,7 +39,7 @@ public enum MinecraftVersion {
 	}
 	
 	private void put(){
-		MineLoader.versions.put(ver_name, this);
+		MineServer.versions.put(ver_name, this);
 	}
 	
 	private void setCurrent(){
@@ -47,7 +47,7 @@ public enum MinecraftVersion {
 	}
 	
 	public static MinecraftVersion get(String str){
-		return MineLoader.versions.get(str);
+		return MineServer.versions.get(str);
 	}
 	
 	public boolean Equals(Object obj){

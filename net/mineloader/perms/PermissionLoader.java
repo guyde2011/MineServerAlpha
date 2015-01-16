@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import net.mineloader.main.MineLoader;
+import net.mineloader.main.MineServer;
 
 import com.google.common.io.Files;
 
@@ -41,7 +41,7 @@ public class PermissionLoader {
 	}
 	
 	public static List<Permissions> parseAllPerms(){
-		File[] files = new File(MineLoader.MC_Path + "/perms").listFiles();
+		File[] files = new File(MineServer.MC_Path + "/perms").listFiles();
 		List<Permissions> perms = new ArrayList<Permissions>();
 		for (File file : files){
 			if (file.getPath().endsWith(".mpc")){

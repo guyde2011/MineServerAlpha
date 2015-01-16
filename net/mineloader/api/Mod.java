@@ -1,6 +1,6 @@
 package net.mineloader.api;
 
-import net.mineloader.main.MineLoader;
+import net.mineloader.main.MineServer;
 
 public abstract class Mod {
 	
@@ -35,7 +35,7 @@ public abstract class Mod {
 		return dir;
 	}
 	
-	public final void setDir(MineLoader loader , ModDir mdir){
+	public final void setDir(MineServer loader , ModDir mdir){
 		dir = mdir;
 	}
 	

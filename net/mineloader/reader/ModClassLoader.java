@@ -16,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 
 import net.mineloader.api.Mod;
 import net.mineloader.api.ModRedirector;
-import net.mineloader.main.MineLoader;
+import net.mineloader.main.MineServer;
 
 public class ModClassLoader {
 	

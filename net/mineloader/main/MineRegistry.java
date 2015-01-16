@@ -34,7 +34,7 @@ public class MineRegistry {
 			commands.add(cmd);
 	}
 	
-	public static List<ICommand> getAllCommands(MineLoader l){
+	public static List<ICommand> getAllCommands(MineServer l){
 		if (l!=null){
 			return commands;
 		}

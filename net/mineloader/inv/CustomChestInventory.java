@@ -17,7 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S2DPacketOpenWindow;
 import net.minecraft.tileentity.TileEntityChest;
-import net.mineloader.main.MineLoader;
+import net.mineloader.main.MineServer;
 import net.mineloader.network.NBTSaver;
 
 public class CustomChestInventory {

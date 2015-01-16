@@ -12,19 +12,19 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.mineloader.main.MineLoader;
+import net.mineloader.main.MineServer;
 
 public class PermissionWriter {
 	
 	
 	private static File newFile(String name){
 		try {
-			new File(MineLoader.MC_Path + "/perms/" + name + ".mpc").createNewFile();
+			new File(MineServer.MC_Path + "/perms/" + name + ".mpc").createNewFile();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new File(MineLoader.MC_Path + "/perms/" + name + ".mpc");
+		return new File(MineServer.MC_Path + "/perms/" + name + ".mpc");
 	}
 	private static List<String> writeGroup(Permissions perms){
 		List<String> lines = new ArrayList<String>();

@@ -12,6 +12,7 @@ import net.mineloader.event.EventHandler;
 import net.mineloader.inv.Trade;
 import net.mineloader.inv.TradeInventory;
 import net.mineloader.perms.PermissionsManager;
+import net.mineloader.perms.PermissionsRegistry;
 
 public class TestingEventHandler {
 	@EventHandler
@@ -26,14 +27,5 @@ public class TestingEventHandler {
 		}
 	}
 	
-	@EventHandler
-	public static void onBlockDestroyed(BlockMinedEvent ev){
-		if (PermissionsManager.Instance.onPerm(ev.player.getName())){
-			List<String> cmds = Arrays.asList(PermissionsManager.Instance.getPerm(ev.player.getName()).getCommands());
-			if (cmds.contains("perms.mine_blocks") || (cmds.contains("perms.all") && !(cmds.contains("-perms.mine_blocks")))){
-				return;
-			}
-		}
-		ev.Cancel();
-	}
+
 }

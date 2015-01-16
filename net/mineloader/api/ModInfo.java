@@ -1,6 +1,6 @@
 package net.mineloader.api;
 
-import net.mineloader.main.MineLoader;
+import net.mineloader.main.MineServer;
 
 public final class ModInfo {
 	public String Author;
