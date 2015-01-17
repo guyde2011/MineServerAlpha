@@ -1,7 +1,7 @@
 ## ClugMSS (MineServer Alpha)
 This is a project I've been working on for the last month , which is supposed to be an alternative to the Bukkit platform , 
 which was taken down.
-Downloads can be found at: https://www.dropbox.com/home/Apps/ClugMSS%20installer/ClugMSS which are made to any build since 17/01/15 by an auto-compiler/commit maker.
+
 
 -
 ---------------------------------------------------------------------------------------------------------------------------
@@ -9,6 +9,11 @@ Downloads can be found at: https://www.dropbox.com/home/Apps/ClugMSS%20installer
 
 
 
+
+#Download Instructions
+
+Downloads can be found at: https://www.dropbox.com/home/Apps/ClugMSS%20installer/ClugMSS which are made to any build since 17/01/15 by a homemade auto-compiler && auto commit maker.
+After you've downloaded one of the builds , download MinecraftServer from the minecraft website , open the "toJar" folder in the zip , and copy it's contents to the MinecraftServer jar , and then you are done
 
 #Installation
 The server is like a normal server but you need to make 3 folders in the containing folder of the jar:
