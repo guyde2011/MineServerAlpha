@@ -39,9 +39,9 @@ import net.mineloader.perms.Permissions;
 import net.mineloader.perms.PermissionsManager;
 import net.mineloader.reader.ModClassLoader;
 import net.mineloader.reader.ModLoader;
+import net.mineloader.scoreboard.ScoreboardHandler;
+import net.mineloader.scoreboard.ScoreboardList;
 import net.mineloader.util.MineName;
-import net.mineloader.util.ScoreboardHandler;
-import net.mineloader.util.ScoreboardList;
 
 public class MineServer {
 	
@@ -139,11 +139,6 @@ public class MineServer {
 	public static void queue_tick(){
 		if (Init){
 			EventManager.fireEvent(new TickEvent());
-			if (isPlayerOnline("guyde2011")){
-				ScoreboardList list = new ScoreboardList("test");
-				list.addEntry(new MineName("red","hello"), 1);
-				ScoreboardHandler.getManagerFor(getPlayer("guyde2011")).setScoreboard(list);
-			}
 		}
 
 	}

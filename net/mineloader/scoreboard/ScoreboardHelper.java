@@ -1,9 +1,10 @@
-package net.mineloader.util;
+package net.mineloader.scoreboard;
 
 import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.server.MinecraftServer;
+import net.mineloader.util.MineName;
 
 public class ScoreboardHelper {
 	

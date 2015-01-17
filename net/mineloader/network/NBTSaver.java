@@ -51,17 +51,17 @@ public class NBTSaver {
 	
 	public static void saveCompoundAt(String fileName , String subfolder , NBTTagCompound comp){
 		DataOutputStream stream = null;
-		if(!new File(MineServer.MC_Path + "/data/" + subfolder).exists()){
-			try {
-				new File(MineServer.MC_Path + "/data/" + subfolder).createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if(!(new File(MineServer.MC_Path + "\\data\\" + subfolder).exists() && new File(MineServer.MC_Path + "\\data\\" + subfolder).isDirectory())){
+			boolean b = new File(MineServer.MC_Path + "\\data\\" + subfolder).mkdir();
+			if (b){
+				MineServer.logger.info("Succesfully made folder " + subfolder + " at the path " + MineServer.MC_Path + "\\data\\" + subfolder);
+			} else {
+				MineServer.logger.info("Could not make the folder " + subfolder + " at the path " + MineServer.MC_Path + "\\data\\" + subfolder);
 			}
 		}
 		try {
-			getFile(fileName).createNewFile();
-			stream = new DataOutputStream(new FileOutputStream(getFile(fileName)));
+			getFile(subfolder + "/" + fileName).createNewFile();
+			stream = new DataOutputStream(new FileOutputStream(getFile(subfolder + "/" + fileName)));
 			CompressedStreamTools.write(comp, stream);
 			stream.close();
 		} catch (FileNotFoundException e) {
@@ -80,7 +80,6 @@ public class NBTSaver {
 		
 		if (new File(MineServer.MC_Path + "/data/" + subfolder).exists()){
 		try {
-			getFile(subfolder + "/" + fileName).createNewFile();
 			stream = new DataInputStream(new FileInputStream(getFile(subfolder + "/" + fileName)));
 			comp = CompressedStreamTools.read(stream);
 			stream.close();

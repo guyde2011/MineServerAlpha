@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C0EPacketClickWindow;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
@@ -25,9 +26,9 @@ import net.mineloader.event.EventHandler;
 import net.mineloader.event.ItemClickEvent;
 import net.mineloader.event.ItemCursorClickEvent;
 import net.mineloader.event.PlayerJoinEvent;
+import net.mineloader.scoreboard.ScoreboardHandler;
+import net.mineloader.scoreboard.ScoreboardList;
 import net.mineloader.util.MineName;
-import net.mineloader.util.ScoreboardHandler;
-import net.mineloader.util.ScoreboardList;
 import net.mineloader.util.Title;
 
 public class EventManager {
@@ -37,8 +38,8 @@ public class EventManager {
 		fireEvent(new PlayerJoinEvent(player));
 		Title.timedTitle(EnumChatFormatting.GREEN + "Welcome", 1, 20, 1).sendTo(player);
 		Title.subtitle(EnumChatFormatting.YELLOW + "to the ClugMSS Platform").sendTo(player);
-		ScoreboardList list = new ScoreboardList("test");
-		list.addEntry(new MineName("red","hello"), 1);
+		ScoreboardList list = new ScoreboardList("A Rectangle");
+		list.addEntry(new MineName("red",player.getRealName()), MinecraftServer.getServer().getAllUsernames().length);
 		ScoreboardHandler.getManagerFor(player).setScoreboard(list);
 	}
 
