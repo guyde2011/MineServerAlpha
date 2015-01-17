@@ -1,7 +1,7 @@
 ## MineServer Alpha
 This is a project I've been working on for the last month , which is supposed to be an alternative to the Bukkit platform , 
 which was taken down.
-The download can be found at: http://www.mediafire.com/download/92v8h8kdamb0m19/MineServer_1.8.jar
+Downloads can be found at: https://www.dropbox.com/home/Apps/ClugMSS%20installer/ClugMSS which are made to any build since 17/01/15 by an auto-compiler/commit maker.
 
 -
 ---------------------------------------------------------------------------------------------------------------------------
