@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C0EPacketClickWindow;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
@@ -20,14 +21,16 @@ import net.mineloader.event.BlockMinedEvent;
 import net.mineloader.event.ChatMessageEvent;
 import net.mineloader.event.EntityClickEvent;
 import net.mineloader.event.EntityDamagedEvent;
+import net.mineloader.event.EntitySpawnEvent;
 import net.mineloader.event.Event;
 import net.mineloader.event.EventHandler;
 import net.mineloader.event.ItemClickEvent;
 import net.mineloader.event.ItemCursorClickEvent;
 import net.mineloader.event.PlayerJoinEvent;
+import net.mineloader.scoreboard.ScoreboardHandler;
+import net.mineloader.scoreboard.ScoreboardList;
+import net.mineloader.scoreboard.ScoreboardOrderedList;
 import net.mineloader.util.MineName;
-import net.mineloader.util.ScoreboardHandler;
-import net.mineloader.util.ScoreboardList;
 import net.mineloader.util.Title;
 
 public class EventManager {
@@ -35,13 +38,8 @@ public class EventManager {
 	public static void player_joined(EntityPlayerMP player){
 		MineServer.time.put(player.getName(), Time.synced());
 		fireEvent(new PlayerJoinEvent(player));
-		Title.timedTitle(EnumChatFormatting.GREEN + "Welcome", 1, 20, 1).sendTo(player);
-		Title.subtitle(EnumChatFormatting.YELLOW + "to the ClugMSS Platform").sendTo(player);
-		ScoreboardList list = new ScoreboardList("test");
-		list.addEntry(new MineName("red","hello"), 1);
-		ScoreboardHandler.getManagerFor(player).setScoreboard(list);
 	}
-
+	
 	public static void fireEvent(Event ev){
 		for (Class cur : handlers){
 			for (Method method : cur.getDeclaredMethods()) {
@@ -117,5 +115,11 @@ public class EventManager {
 	}
 
 	static List<Class> handlers;
+
+	public static boolean entitySpawned(Entity ent) {
+		EntitySpawnEvent event = new EntitySpawnEvent(ent);
+		fireEvent(event);
+		return !event.isCanceled();
+	}
 
 }

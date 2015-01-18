@@ -86,10 +86,13 @@ public class PermissionsManager {
 		PermissionWriter.writeGroupFile(perm);
 	}
 	
-	public boolean canPlayerUseCommand(String name , String cmd){
+	public boolean canPlayerUseCommand(String name , String comde){
 		for (Permissions perm : perms){
 			if (perm.hasPlayer(name)){
 				List<String> cmds = Arrays.asList(perm.getCommands());
+				String comd = comde + " ";
+				String cmd = comd.substring(0,comd.indexOf(" "));
+				
 				if (cmds.contains(cmd) || (cmds.contains("all.perms") && !(cmds.contains("-" + cmd)))){
 					return true;
 				}

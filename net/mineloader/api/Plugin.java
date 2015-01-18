@@ -2,7 +2,7 @@ package net.mineloader.api;
 
 import net.mineloader.main.MineServer;
 
-public abstract class Mod {
+public abstract class Plugin {
 	
 	public abstract void init();
 	
@@ -14,13 +14,13 @@ public abstract class Mod {
 	
 	public abstract void register();
 		
-	public final ModInfo getInfo(){
-		return new ModInfo(this , Author , version, Path);
+	public final PluginInfo getInfo(){
+		return new PluginInfo(this , Author , version, Path);
 	}
 	
-	public abstract Mod getInstance();
+	public abstract Plugin getInstance();
 	
-	public Mod(String path){
+	public Plugin(String path){
 		Path = path;
 	}
 	public static String version;
@@ -29,18 +29,20 @@ public abstract class Mod {
 	public static String LocalizedName;
 	
 	public static String UnlocalizedName;
-	private ModDir dir;
+	private PluginDir dir;
 	
-	public final ModDir getDir(){
+	public final PluginDir getDir(){
 		return dir;
 	}
 	
-	public final void setDir(MineServer loader , ModDir mdir){
+	public final void setDir(MineServer loader , PluginDir mdir){
 		dir = mdir;
 	}
 	
 	public int hashCode(){
 		return UnlocalizedName.hashCode();
 	}
+
+	public abstract void autosave();
 	
 }

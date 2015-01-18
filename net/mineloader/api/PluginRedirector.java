@@ -3,7 +3,7 @@ package net.mineloader.api;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class ModRedirector{
+public abstract class PluginRedirector{
 	
 	private static String modMain;
 	private static String tex;
@@ -13,7 +13,7 @@ public abstract class ModRedirector{
 	
 
 
-	public ModRedirector(String main){
+	public PluginRedirector(String main){
 		modMain = main;
 
 	}

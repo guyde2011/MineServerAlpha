@@ -1,13 +1,13 @@
 package net.mineloader.api;
 
-public enum ModDir {
+public enum PluginDir {
 	ZIP(0),
 	RAR(1),
 	DIR(2),
 	JAR(3);
 	
 	private int type;
-	ModDir(int id){
+	PluginDir(int id){
 		type = id;
 	}
 	

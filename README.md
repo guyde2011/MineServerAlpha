@@ -1,7 +1,7 @@
-## MineServer Alpha
+## ClugMSS (MineServer Alpha)
 This is a project I've been working on for the last month , which is supposed to be an alternative to the Bukkit platform , 
 which was taken down.
-The download can be found at: http://www.mediafire.com/download/92v8h8kdamb0m19/MineServer_1.8.jar
+
 
 -
 ---------------------------------------------------------------------------------------------------------------------------
@@ -9,6 +9,11 @@ The download can be found at: http://www.mediafire.com/download/92v8h8kdamb0m19/
 
 
 
+
+#Download Instructions
+
+Downloads can be found at: https://www.dropbox.com/sh/5pmlc05csbo7o3s/AACyDVuzdvWuzWNd6p44xXKpa?dl=0 which are made to any build since 17/01/15 by a homemade auto-compiler && auto commit maker.
+After you've downloaded one of the builds , download MinecraftServer from the minecraft website , open the "toJar" folder in the zip , and copy it's contents to the MinecraftServer jar , and then you are done
 
 #Installation
 The server is like a normal server but you need to make 3 folders in the containing folder of the jar:

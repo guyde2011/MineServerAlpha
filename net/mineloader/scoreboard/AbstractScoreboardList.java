@@ -1,4 +1,4 @@
-package net.mineloader.util;
+package net.mineloader.scoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.S3BPacketScoreboardObjective;
 import net.minecraft.network.play.server.S3CPacketUpdateScore;
-import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.IScoreObjectiveCriteria;
+import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
@@ -15,33 +15,16 @@ import net.mineloader.network.PacketSender;
 import net.mineloader.util.MineEntry;
 import net.mineloader.util.MineName;
 
-public class ScoreboardOrderedList implements IScoreboardList{
-
-	protected static Scoreboard getScoreboard(){
-		return MinecraftServer.getServer().worldServers[0].getScoreboard();
-	}
-	
-	public ScoreboardOrderedList(String name){
-		scoreboards = new ArrayList<MineEntry<Integer>>();
-		obj = new ScoreObjective(getScoreboard(),name,IScoreObjectiveCriteria.DUMMY);
-		index = 1024;
-	}
-	
+public class AbstractScoreboardList implements IScoreboardList{
 	protected List<MineEntry<Integer>> scoreboards;
 	protected ScoreObjective obj;
-	private int index;
 	
-	
-	public void addEntry(MineName name){
-		scoreboards.add(new MineEntry<Integer>(name , index));
-		index--;
+	public AbstractScoreboardList(String name){
+		scoreboards = new ArrayList<MineEntry<Integer>>();
+		obj = new ScoreObjective(getScoreboard(),name,IScoreObjectiveCriteria.DUMMY);
 	}
 	
-	public void removeEntry(MineName name){
-		scoreboards.remove(scoreboards.indexOf(new MineEntry<Integer>(name,0)));
-	}
-	
-	private List<Score> getScores(){
+	protected List<Score> getScores(){
 		List<Score> list = new ArrayList<Score>();
 		for (MineEntry<Integer> entry : scoreboards){
 			Score sc = new Score(getScoreboard(),obj,entry.getName());
@@ -75,7 +58,18 @@ public class ScoreboardOrderedList implements IScoreboardList{
 		return obj;
 	}
 	
-
-}
+	protected static Scoreboard getScoreboard(){
+		return MinecraftServer.getServer().worldServers[0].getScoreboard();
+	}
 
 	
+	public void removeEntry(MineName name){
+		scoreboards.remove(scoreboards.indexOf(new MineEntry<Integer>(name,0)));
+	}
+
+	@Override
+	public List<MineEntry<Integer>> getEntries() {
+		// TODO Auto-generated method stub
+		return scoreboards;
+	}
+}

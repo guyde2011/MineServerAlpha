@@ -66,4 +66,36 @@ public class CustomChestInventory {
 		inv.inv.setStacks(stacks);
 		return inv;
 	}
+	
+	public void saveInventoryIn(String fileName, String subfolder){
+		NBTTagCompound comp = new NBTTagCompound();
+		comp.setInteger("size", size);
+		comp.setString("name", displayName);
+		NBTTagList list = new NBTTagList();
+		int index = 0;
+		for (ItemStack cur : inv.getStacks()){
+			NBTTagCompound item = new NBTTagCompound();
+			if (cur!=null){
+				cur.writeToNBT(item);
+			}
+			item.setInteger("slot", index);
+			list.appendTag(item);
+			index++;
+		}
+		comp.setTag("inventory", list);
+		NBTSaver.saveCompoundAt(fileName,subfolder , comp);
+	}
+	
+	public static CustomChestInventory readFromNBTIn(String fileName , String subfolder){
+		NBTTagCompound comp = NBTSaver.readCompoundAt(fileName , subfolder);
+		ItemStack[] stacks = new ItemStack[comp.getInteger("size")];
+		CustomChestInventory inv = new CustomChestInventory(comp.getString("name"),stacks.length);
+		NBTTagList list = comp.getTagList("inventory",10);
+		for (int i = 0; i<inv.size; i++){
+			NBTTagCompound item = (NBTTagCompound) list.get(i);
+			stacks[item.getInteger("slot")]=ItemStack.loadItemStackFromNBT(item);
+		}
+		inv.inv.setStacks(stacks);
+		return inv;
+	}
 }

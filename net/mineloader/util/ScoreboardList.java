@@ -13,6 +13,8 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.mineloader.main.MineServer;
 import net.mineloader.network.PacketSender;
+import net.mineloader.util.MineEntry;
+import net.mineloader.util.MineName;
 
 public class ScoreboardList implements IScoreboardList{
 	protected List<MineEntry<Integer>> scoreboards;
