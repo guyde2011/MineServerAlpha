@@ -43,8 +43,8 @@ public class ConfigPerm {
 	} 
 	
 	public boolean isAllowedFor(EntityPlayerMP player){
-		if (PermissionsManager.Instance.onPerm(player.getRealName())){
-			return isAllowed(PermissionsManager.Instance.getPerm(player.getRealName()));
+		if (PermissionsManager.Instance.onPerm(player.getName())){
+			return isAllowed(PermissionsManager.Instance.getPerm(player.getName()));
 		}
 		
 		return false;

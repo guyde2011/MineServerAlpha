@@ -37,8 +37,8 @@ import net.mineloader.api.*;
 import net.mineloader.event.TickEvent;
 import net.mineloader.perms.Permissions;
 import net.mineloader.perms.PermissionsManager;
-import net.mineloader.reader.ModClassLoader;
-import net.mineloader.reader.ModLoader;
+import net.mineloader.reader.PluginClassLoader;
+import net.mineloader.reader.PluginLoader;
 import net.mineloader.scoreboard.ScoreboardHandler;
 import net.mineloader.scoreboard.ScoreboardList;
 import net.mineloader.util.MineName;
@@ -50,7 +50,7 @@ public class MineServer {
 	public static String MC_Version;
 	public static String mod_path;
 	public static Map<String,MinecraftVersion> versions;
-	public static List<Mod> mods;
+	public static List<Plugin> plugins;
 	private static boolean Init = false;
 	public static org.apache.logging.log4j.Logger logger = LogManager.getLogger();
 	private static String getMinecraftPath(){
@@ -61,7 +61,7 @@ public class MineServer {
 		
 	}
 	
-	public MineServer(ModLoader loader){
+	public MineServer(PluginLoader pluginLoader){
 		
 	}
 	
@@ -78,19 +78,19 @@ public class MineServer {
 		MC_Path = path;
 		EventManager.handlers = new ArrayList<Class>();
 		MC_Version = Ver;
-		mods = new ArrayList<Mod>();
+		plugins = new ArrayList<Plugin>();
 		if (MinecraftVersion.current.Equals(Ver)){
 			Path currentRelativePath = Paths.get("");
 			String s = currentRelativePath.toAbsolutePath().toString();
 			MC_Path =  s;
 			PermissionsManager.init();
 		    mod_path = MC_Path + "\\plugins";
-			mods = ModLoader.loadAllMods();
+			plugins = PluginLoader.loadAllPlugins();
 		}
-		for (Mod mod : mods){
-			mod.pre_init();
+		for (Plugin p : plugins){
+			p.pre_init();
 		}
-		EventManager.SubscribeHandler(TestingEventHandler.class);
+		//EventManager.SubscribeHandler(TestingEventHandler.class);
 		EventManager.SubscribeHandler(MSEventHandler.class);
 
 	}
@@ -98,18 +98,18 @@ public class MineServer {
 	public static void run(){
 
 		
-		for (Mod mod : mods){
-			mod.init();
+		for (Plugin p : plugins){
+			p.init();
 		}
 		
-		for (Mod mod : mods){
-			mod.post_init();
+		for (Plugin p : plugins){
+			p.post_init();
 		}
 		
-		for (Mod mod : mods){
-			mod.register();
+		for (Plugin p : plugins){
+			p.register();
 		}
-		logger.info("Succesfully loaded "+mods.size()+" plugins");
+		logger.info("Succesfully loaded "+plugins.size()+" plugins");
 		Init  = true;
 		
 	}
@@ -184,7 +184,7 @@ public class MineServer {
 				e.printStackTrace();
 			}
 			if (success){
-				((EntityPlayerMP)sender.getCommandSenderEntity()).addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Succesfully reloaded " + mods.size() + " plugins to the MineLoader server"));
+				((EntityPlayerMP)sender.getCommandSenderEntity()).addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "Succesfully reloaded " + plugins.size() + " plugins to the MineLoader server"));
 			} else {
 				((EntityPlayerMP)sender.getCommandSenderEntity()).addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Could not reload all plugins to the MineLoader server"));
 			}
@@ -215,5 +215,11 @@ public class MineServer {
 		List<ICommand> l = MineRegistry.getAllCommands(loader);
 		l.add(loader.new ReloadPluginsCommand());
 		return l;
+	}
+
+	public static void autosave() {
+		for (Plugin p : plugins){
+			p.autosave();
+		}
 	}
 }

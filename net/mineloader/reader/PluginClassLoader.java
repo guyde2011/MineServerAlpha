@@ -14,17 +14,17 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 
-import net.mineloader.api.Mod;
-import net.mineloader.api.ModRedirector;
+import net.mineloader.api.Plugin;
+import net.mineloader.api.PluginRedirector;
 import net.mineloader.main.MineServer;
 
-public class ModClassLoader {
+public class PluginClassLoader {
 	
 	private String path;
 	private File url;
 	private URLClassLoader loader;
 	
-	public ModClassLoader(File f) {
+	public PluginClassLoader(File f) {
 		try {
 			loader = URLClassLoader.newInstance(new URL[]{f.toURI().toURL()} , getClass().getClassLoader());
 		} catch (MalformedURLException e) {
@@ -35,7 +35,7 @@ public class ModClassLoader {
 		path = url.getPath();
 	}
 	
-	public ModClassLoader(File[] f) {
+	public PluginClassLoader(File[] f) {
 		URL[] urls = new URL[f.length];
 		int r = 0;
 		for (File fi : f){
@@ -52,9 +52,9 @@ public class ModClassLoader {
 		path = url.getPath();
 	}
 	
-	public Mod LoadMod() throws Exception{
-		Class<? extends ModRedirector> mod = LoadClass("main.redirect");
-		return (Mod) New(mod.newInstance().redirect());
+	public Plugin LoadPlugin() throws Exception{
+		Class<? extends PluginRedirector> Plugin = LoadClass("main.redirect");
+		return (Plugin) New(Plugin.newInstance().redirect());
 	}
 	
 	public Class LoadClass(String str) throws Exception{
@@ -65,7 +65,7 @@ public class ModClassLoader {
 	}
 	
 	public Object New(String str) throws Exception{
-		Class<? extends Mod> clazz = (Class<? extends Mod>) Class.forName(str, true, loader);
+		Class<? extends Plugin> clazz = (Class<? extends Plugin>) Class.forName(str, true, loader);
 		return clazz.getConstructor(String.class).newInstance(path);
 	}
 
