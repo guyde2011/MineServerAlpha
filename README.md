@@ -12,7 +12,7 @@ which was taken down.
 
 #Download Instructions
 
-Downloads can be found at: https://www.dropbox.com/home/Apps/ClugMSS%20installer/ClugMSS which are made to any build since 17/01/15 by a homemade auto-compiler && auto commit maker.
+Downloads can be found at: https://www.dropbox.com/sh/5pmlc05csbo7o3s/AACyDVuzdvWuzWNd6p44xXKpa?dl=0 which are made to any build since 17/01/15 by a homemade auto-compiler && auto commit maker.
 After you've downloaded one of the builds , download MinecraftServer from the minecraft website , open the "toJar" folder in the zip , and copy it's contents to the MinecraftServer jar , and then you are done
 
 #Installation
