@@ -1,4 +1,4 @@
-package net.mineloader.network;
+package net.mineloader.reader;
 
 import java.io.DataInputStream;
 import java.io.DataOutput;

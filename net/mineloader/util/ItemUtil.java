@@ -42,6 +42,18 @@ public class ItemUtil {
 		return stack1;
 	}
 	
+	public static ItemStack setAttributes(ItemStack stack , AttributeList map){
+		AttributeList temp = map;
+		NBTTagList attributes = SharedMonsterAttributes.writeBaseAttributeMapToNBT(temp.toMap());
+		NBTTagCompound comp = new NBTTagCompound();
+		if (stack.hasTagCompound()){
+			comp = stack.getTagCompound();
+		}
+		comp.setTag("AttributeModifiers", attributes);
+		ItemStack stack1 = stack;
+		stack1.setTagCompound(comp);
+		return stack1;
+	}
 	
 	public static ItemStack newStack(Item item , int amount , int meta , AttributeList map){
 		return addAttributes(new ItemStack(item , amount , meta),map);

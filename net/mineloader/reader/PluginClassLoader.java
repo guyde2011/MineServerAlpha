@@ -15,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 
 
 import net.mineloader.api.Plugin;
-import net.mineloader.api.PluginRedirector;
 import net.mineloader.main.MineServer;
 
 public class PluginClassLoader {
@@ -51,22 +50,18 @@ public class PluginClassLoader {
 		url = f[1];
 		path = url.getPath();
 	}
-	
+
 	public Plugin LoadPlugin() throws Exception{
-		Class<? extends PluginRedirector> Plugin = LoadClass("main.redirect");
-		return (Plugin) New(Plugin.newInstance().redirect());
+		for (URL cur : loader.getURLs()){
+			Class c = loader.loadClass((cur.getFile()).replaceAll(path , "").replaceAll("/", "."));
+			if (c != Plugin.class && Plugin.class.isAssignableFrom(c)){
+				return (Plugin) c.newInstance();
+			}
+		}
+		return null;
 	}
 	
-	public Class LoadClass(String str) throws Exception{
-		Class clazz = Class.forName(str, true, loader);
-		// Avoid Class.newInstance, for it is evil.
-		return clazz;
-		
-	}
-	
-	public Object New(String str) throws Exception{
-		Class<? extends Plugin> clazz = (Class<? extends Plugin>) Class.forName(str, true, loader);
-		return clazz.getConstructor(String.class).newInstance(path);
-	}
+
+
 
 }

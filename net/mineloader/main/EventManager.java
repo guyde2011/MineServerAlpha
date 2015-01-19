@@ -21,12 +21,15 @@ import net.mineloader.event.BlockMinedEvent;
 import net.mineloader.event.ChatMessageEvent;
 import net.mineloader.event.EntityClickEvent;
 import net.mineloader.event.EntityDamagedEvent;
+import net.mineloader.event.EntityKilledEvent;
 import net.mineloader.event.EntitySpawnEvent;
 import net.mineloader.event.Event;
 import net.mineloader.event.EventHandler;
 import net.mineloader.event.ItemClickEvent;
 import net.mineloader.event.ItemCursorClickEvent;
 import net.mineloader.event.PlayerJoinEvent;
+import net.mineloader.event.WindowCloseEvent;
+import net.mineloader.event.WindowOpenEvent;
 import net.mineloader.scoreboard.ScoreboardHandler;
 import net.mineloader.scoreboard.ScoreboardList;
 import net.mineloader.scoreboard.ScoreboardOrderedList;
@@ -120,6 +123,19 @@ public class EventManager {
 		EntitySpawnEvent event = new EntitySpawnEvent(ent);
 		fireEvent(event);
 		return !event.isCanceled();
+	}
+
+	public static void entityKilled(Entity ent) {
+		fireEvent(new EntityKilledEvent(ent));
+		
+	}
+
+	public static void openWindow(EntityPlayerMP player) {
+		fireEvent(new WindowOpenEvent(player , player.openContainer));
+	}
+	
+	public static void closeWindow(EntityPlayerMP player) {
+		fireEvent(new WindowCloseEvent(player , player.openContainer));
 	}
 
 }

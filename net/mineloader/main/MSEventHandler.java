@@ -20,10 +20,5 @@ public class MSEventHandler {
 		if (!PermissionsRegistry.CLICK_BLOCKS.isAllowedFor(ev.player)){
 			ev.Cancel();
 		}
-		if (ev.block==Blocks.chest){
-			CustomChestInventory inv = new CustomChestInventory("testInv", 45);
-			inv.saveInventoryIn("tester", "world");
-			inv.openInventory(ev.player);
-		}
 	}
 }
