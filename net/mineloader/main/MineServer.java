@@ -149,7 +149,7 @@ public class MineServer {
 		@Override
 		public int compareTo(Object arg0) {
 			// TODO Auto-generated method stub
-			return 11110;
+			return 0;
 		}
 
 		@Override
