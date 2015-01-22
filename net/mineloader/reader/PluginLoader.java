@@ -39,7 +39,7 @@ public class PluginLoader {
 				File[] files = new File[]{new File(MineServer.mod_path),file};
 				PluginClassLoader load = new PluginClassLoader(files);
 				try {
-					Plugin Plugin = load.LoadPlugin();
+					Plugin Plugin = load.LoadJarPlugin();
 					Plugin.setDir(new MineServer(new PluginLoader()), PluginDir.JAR);
 					Plugins.add(Plugin);
 				} catch (Exception e) {
@@ -56,6 +56,8 @@ public class PluginLoader {
 		ret.addAll(LoadAllDirs());
 		return ret;
 	}
+	
+
 	
 
 }

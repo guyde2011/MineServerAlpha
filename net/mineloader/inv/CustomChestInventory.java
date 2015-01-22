@@ -17,8 +17,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S2DPacketOpenWindow;
 import net.minecraft.tileentity.TileEntityChest;
+import net.mineloader.main.EventManager;
 import net.mineloader.main.MineServer;
-import net.mineloader.network.NBTSaver;
+import net.mineloader.reader.NBTSaver;
 
 public class CustomChestInventory {
 	private String displayName;
@@ -33,6 +34,7 @@ public class CustomChestInventory {
 	public void openInventory(EntityPlayerMP player){
 		 player.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(player.getCurrentWindowId(), "minecraft:container", inv.getDisplayName(), size));
          player.openContainer = new ContainerChest(player.inventory, inv, player);
+         EventManager.openWindow(player);
 	}
 	
 	public void saveInventory(String fileName){
