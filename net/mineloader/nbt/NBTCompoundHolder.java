@@ -94,6 +94,10 @@ public class NBTCompoundHolder {
 	public void setByte(String entry , byte value){
 		comp.setByte(entry, value);
 	}
+
+	public NBTTagCompound getCompoundTag(String key) {
+		return comp.getCompoundTag(key);
+	}
 	
 	
 	

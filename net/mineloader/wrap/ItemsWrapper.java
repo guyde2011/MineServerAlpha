@@ -157,7 +157,7 @@ public enum ItemsWrapper{
 	Ladder(Blocks.ladder),
 	Pumpkin_Lamp(Blocks.lit_pumpkin),
 	Mycelium(Blocks.mycelium),
-	/** ----<Items>---- **/
+	/* ----<Items>---- */
 	Fish(Items.fish),
 	Cookie(Items.cookie),
 	Beef(Items.beef),
