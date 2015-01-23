@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.world.World;
 import net.mineloader.util.Angle3D;
 import net.mineloader.util.MinePos;
 
@@ -66,6 +67,10 @@ public abstract class EntityWrapper<T extends Entity> {
 		owner.motionX = vel.X;
 		owner.motionY = vel.Y;
 		owner.motionZ = vel.Z;
+	}
+	
+	public World getWorld(){
+		return owner.getEntityWorld();
 	}
 	
 	
