@@ -1,12 +1,15 @@
 package net.mineloader.wrap;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 import net.mineloader.util.Angle3D;
 import net.mineloader.util.MinePos;
+import net.mineloader.util.WrapperCastException;
 
 public abstract class EntityWrapper<T extends Entity> {
 	protected final T owner;
@@ -72,6 +75,44 @@ public abstract class EntityWrapper<T extends Entity> {
 	public World getWorld(){
 		return owner.getEntityWorld();
 	}
+	
+	public EntityWrapper<Entity> getRidingEntity(){
+		return Generic(owner.ridingEntity);
+	}
+	
+	public EntityWrapper<Entity> getRiddenByEntity(){
+		return Generic(owner.riddenByEntity);
+	}
+	
+	public boolean hasRidingEntity(){
+		return owner.ridingEntity!=null;
+	}
+	
+	public boolean hasRiddenByEntity(){
+		return owner.riddenByEntity!=null;
+	}
+	
+	public boolean isLiving(){
+		return owner instanceof EntityLiving;
+	}
+	
+	private boolean isChildClass(Class parent , Class child){
+		return !parent.equals(child) && parent.isAssignableFrom(child);
+	}
+	
+	private boolean isInstanceOf(Class parent , Class child){
+		return parent.isAssignableFrom(child);
+	}
+	
+	public <F extends EntityLivingBase> EntityLivingWrapper<F> toLivingWrapper(Class<F> castTo){
+		if (isChildClass(EntityLivingBase.class , castTo) && isInstanceOf(owner.getClass() , castTo)){
+			return new EntityLivingWrapper<F>((F) owner);
+		}
+		throw new WrapperCastException("Could not cast EntityWrapper of type " + owner.getClass() + " to type " + castTo );
+	}
+	
+	
+	
 	
 	
 	
