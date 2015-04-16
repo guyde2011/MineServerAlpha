@@ -1,8 +1,8 @@
 ## ClugMSS (MineServer Alpha)
-<Outdated>
+[Outdated]
 This is a project I've been working on for the last month , which is supposed to be an alternative to the Bukkit platform , which was taken down for quite some time.
 
-<Update>
+[Update]
 I've just got back on working on this project , which I hope would be a real alternative to the current custom Minecraft server platforms.
 
 -
